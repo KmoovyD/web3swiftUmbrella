@@ -1,9 +1,9 @@
-/* src/libsecp256k1-config.h.  Generated from libsecp256k1-config.h.in by configure.  */
-/* src/libsecp256k1-config.h.in.  Generated from configure.ac by autoheader.  */
+/* src/libsecp256k1Local-config.h.  Generated from libsecp256k1Local-config.h.in by configure.  */
+/* src/libsecp256k1Local-config.h.in.  Generated from configure.ac by autoheader.  */
 
-#ifndef LIBSECP256K1_CONFIG_H
+#ifndef libsecp256k1Local_CONFIG_H
 
-#define LIBSECP256K1_CONFIG_H
+#define libsecp256k1Local_CONFIG_H
 
 #undef USE_BASIC_CONFIG
 
@@ -68,19 +68,19 @@
 /* #define LT_OBJDIR ".libs/" */
 
 /* Name of package */
-#define PACKAGE "libsecp256k1"
+#define PACKAGE "libsecp256k1Local"
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT ""
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME "libsecp256k1"
+#define PACKAGE_NAME "libsecp256k1Local"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "libsecp256k1 0.1"
+#define PACKAGE_STRING "libsecp256k1Local 0.1"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "libsecp256k1"
+#define PACKAGE_TARNAME "libsecp256k1Local"
 
 /* Define to the home page for this package. */
 #define PACKAGE_URL ""
@@ -166,4 +166,4 @@
 #define USE_SCALAR_8X32 1
 #endif
 
-#endif /*LIBSECP256K1_CONFIG_H*/
+#endif /*libsecp256k1Local_CONFIG_H*/

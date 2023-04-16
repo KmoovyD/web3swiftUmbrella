@@ -28,7 +28,7 @@
 
 static void default_illegal_callback_fn(const char* str, void* data) {
     (void)data;
-    fprintf(stderr, "[libsecp256k1] illegal argument: %s\n", str);
+    fprintf(stderr, "[libsecp256k1Local] illegal argument: %s\n", str);
     abort();
 }
 
@@ -39,7 +39,7 @@ static const secp256k1_callback default_illegal_callback = {
 
 static void default_error_callback_fn(const char* str, void* data) {
     (void)data;
-    fprintf(stderr, "[libsecp256k1] internal consistency check failed: %s\n", str);
+    fprintf(stderr, "[libsecp256k1Local] internal consistency check failed: %s\n", str);
     abort();
 }
 
