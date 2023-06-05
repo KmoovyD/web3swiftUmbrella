@@ -1,33 +1,62 @@
-// swift-tools-version:5.0
+// swift-tools-version: 5.5.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "Web3swift",
+    platforms: [
+        .macOS(.v10_15), .iOS(.v13)
+    ],
     products: [
-        // Products define the executables and libraries produced by a package, and make them visible to other packages.
-        .library(name: "web3swift", targets: ["web3swift"]),
+        .library(name: "web3swift", targets: ["web3swift"])
     ],
     dependencies: [
-        .package(url: "https://github.com/attaswift/BigInt.git", from: "5.0.0"),
-        .package(url: "https://github.com/mxcl/PromiseKit.git", from: "6.8.4"),
-        .package(url: "https://github.com/daltoniam/Starscream.git", from: "3.1.0"),
-        .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.0.0"),
+        .package(url: "https://github.com/attaswift/BigInt.git", .upToNextMinor(from: "5.3.0")),
+        .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", .upToNextMinor(from: "1.5.1")),
         .package(url: "https://github.com/Boilertalk/secp256k1.swift", from: "0.1.7"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages which this package depends on.
-//        .target(name: "secp256k1Local"),
+        .target(
+            name: "Web3Core",
+            dependencies: [
+                "BigInt",
+                "CryptoSwift",
+                .product(name: "secp256k1", package: "secp256k1.swift")]
+        ),
         .target(
             name: "web3swift",
-            dependencies: ["BigInt", "PromiseKit", "Starscream", "CryptoSwift",
-                           .product(name: "secp256k1", package: "secp256k1.swift"),],
-            exclude: [
-            ]),
+            dependencies: [
+                "Web3Core",
+                "BigInt",
+                .product(name: "secp256k1", package: "secp256k1.swift")],
+            resources: [
+                .copy("./Browser/browser.js"),
+                .copy("./Browser/browser.min.js"),
+                .copy("./Browser/wk.bridge.min.js")
+            ]
+        ),
         .testTarget(
-            name: "web3swiftTests",
-            dependencies: ["web3swift"]),
+            name: "localTests",
+            dependencies: ["web3swift"],
+            path: "Tests/web3swiftTests/localTests",
+            resources: [
+                .copy("../../../TestToken/Helpers/SafeMath/SafeMath.sol"),
+                .copy("../../../TestToken/Helpers/TokenBasics/ERC20.sol"),
+                .copy("../../../TestToken/Helpers/TokenBasics/IERC20.sol"),
+                .copy("../../../TestToken/Token/Web3SwiftToken.sol")
+            ]
+        ),
+        .testTarget(
+            name: "remoteTests",
+            dependencies: ["web3swift"],
+            path: "Tests/web3swiftTests/remoteTests",
+            resources: [
+                .copy("../../../TestToken/Helpers/SafeMath/SafeMath.sol"),
+                .copy("../../../TestToken/Helpers/TokenBasics/ERC20.sol"),
+                .copy("../../../TestToken/Helpers/TokenBasics/IERC20.sol"),
+                .copy("../../../TestToken/Token/Web3SwiftToken.sol")
+            ]
+        )
     ]
 )
